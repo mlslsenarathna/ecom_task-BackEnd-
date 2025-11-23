@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +31,19 @@ public class ProductServiceImpl implements ProductService {
             );
         }
         return dtoList;
+    }
+
+    @Override
+    public void updateQuantity(int qty, String productId) {
+        Optional<ProductEntity> productEntity=productRepository.findById(productId);
+        ProductEntity product=productEntity.orElseThrow();
+        product.setQuantity(product.getQuantity()-qty);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void addNewProduct(ProductDTO productDTO) {
+        productRepository.save(mapper.map(productDTO,ProductEntity.class));
     }
 
 

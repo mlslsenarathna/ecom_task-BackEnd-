@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("product")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class ProductController {
 
     final ProductService productService;
@@ -19,10 +20,14 @@ public class ProductController {
 
     }
     @PostMapping("/setQuantity/{qty}")
-    public void setQuantity(@PathVariable int qty){
-       // productService.updateQuantity(qty);
-    }
+    public void setQuantity(@PathVariable int qty,@RequestParam("id") String productId){
 
+        productService.updateQuantity(qty,productId);
+    }
+    @PostMapping("/addNewProduct")
+    public void addProduct(@RequestBody ProductDTO productDTO){
+        productService.addNewProduct(productDTO);
+    }
 //    @PostMapping("{apikey}/setQuantity/{city}")
 //    public void setQuantity(@PathVariable int qty,@RequestParam ){
 //        // productService.updateQuantity(qty);

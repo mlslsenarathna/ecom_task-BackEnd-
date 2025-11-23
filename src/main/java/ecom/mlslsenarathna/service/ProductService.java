@@ -12,4 +12,7 @@ public interface ProductService {
     List<ProductDTO> getProductList();
 
 
+    void updateQuantity(int qty, String productId);
+
+    void addNewProduct(ProductDTO productDTO);
 }
